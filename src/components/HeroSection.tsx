@@ -1,0 +1,93 @@
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import heroBg from "@/assets/hero-bg.jpg";
+import CountdownTimer from "./CountdownTimer";
+
+const HeroSection = () => {
+  return (
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroBg})` }}
+      />
+      <div className="absolute inset-0 bg-navy/80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-navy/60" />
+
+      <div className="relative z-10 container mx-auto px-4 text-center py-32">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-gold font-body text-sm md:text-base uppercase tracking-[0.3em] mb-6"
+        >
+          ZUSDA Evangelical Mission
+        </motion.p>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-4"
+        >
+          Njooni Tusemezane
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="font-display italic text-xl md:text-2xl text-gold-light mb-3"
+        >
+          "Come Now, Let Us Reason Together"
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="text-primary-foreground/60 text-sm md:text-base mb-10"
+        >
+          Isaiah 1:18 &nbsp;·&nbsp; 13–27 December 2026 &nbsp;·&nbsp; Kinungi, Naivasha
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 }}
+        >
+          <CountdownTimer targetDate="2026-12-13T00:00:00" />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mt-10"
+        >
+          <a
+            href="#involved"
+            className="bg-gradient-gold text-secondary-foreground font-semibold px-8 py-3.5 rounded-full text-base hover:opacity-90 transition-opacity animate-pulse-gold"
+          >
+            Get Involved
+          </a>
+          <a
+            href="#about"
+            className="border-2 border-gold/40 text-primary-foreground font-semibold px-8 py-3.5 rounded-full text-base hover:bg-gold/10 transition-colors"
+          >
+            Learn More
+          </a>
+        </motion.div>
+      </div>
+
+      <motion.div
+        animate={{ y: [0, 8, 0] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gold/60"
+      >
+        <ChevronDown size={28} />
+      </motion.div>
+    </section>
+  );
+};
+
+export default HeroSection;

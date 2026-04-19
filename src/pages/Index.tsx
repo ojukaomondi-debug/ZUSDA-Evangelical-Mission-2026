@@ -8,20 +8,23 @@ import GetInvolvedSection from "@/components/GetInvolvedSection";
 import CommitteeSection from "@/components/CommitteeSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import { InvolvementProvider } from "@/components/InvolvementDialogs";
 
 const Index = () => (
-  <div className="min-h-screen">
-    <Navbar />
-    <HeroSection />
-    <AboutSection />
-    <DetailsSection />
-    <ThemeSection />
-    <BudgetSection />
-    <GetInvolvedSection />
-    <CommitteeSection />
-    <CTASection />
-    <Footer />
-  </div>
+  <InvolvementProvider>
+    <div className="min-h-screen">
+      <Navbar />
+      <HeroSection />
+      <AboutSection />
+      <DetailsSection />
+      <ThemeSection />
+      <BudgetSection />
+      <GetInvolvedSection />
+      <CommitteeSection />
+      <CTASection />
+      <Footer />
+    </div>
+  </InvolvementProvider>
 );
 
 export default Index;

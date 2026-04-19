@@ -40,10 +40,10 @@ const ThemeSection = () => {
             className="bg-background rounded-2xl p-8 md:p-12 shadow-soft border border-gold/10 mb-12"
           >
             <p className="font-display text-lg md:text-xl text-navy leading-relaxed italic">
-              "Come now, let us settle the matter," says the Lord. "Though your sins are like scarlet,
-              they shall be as white as snow; though they are red as crimson, they shall be like wool."
+              "Come now, and let us reason together," says the Lord, "Though your sins are like scarlet,
+              they shall be as white as snow; though they are red like crimson, they shall be as wool."
             </p>
-            <cite className="block mt-4 text-gold-dark font-semibold not-italic">— Isaiah 1:18</cite>
+            <cite className="block mt-4 text-gold-dark font-semibold not-italic">— Isaiah 1:18 (NKJV)</cite>
           </motion.blockquote>
 
           <motion.div

@@ -1,31 +1,38 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { HandHeart, Coins, Footprints } from "lucide-react";
+import { useInvolvement } from "./InvolvementDialogs";
 
-const ways = [
+type Kind = "pray" | "give" | "go";
+
+const ways: { icon: any; title: string; desc: string; action: string; kind: Kind }[] = [
   {
     icon: HandHeart,
     title: "Pray",
     desc: "Commit to spiritual support through intercession for the mission and the community of Kinungi. Prayer is the foundation of everything we do.",
     action: "Join Prayer Team",
+    kind: "pray",
   },
   {
     icon: Coins,
     title: "Give",
     desc: "Contribute financially toward the mission budget. Your giving is an investment in eternity — every shilling counts toward reaching souls.",
     action: "Make a Contribution",
+    kind: "give",
   },
   {
     icon: Footprints,
     title: "Go",
     desc: "Participate physically as a missionary during the 15-day outreach. Open to all willing individuals ready to serve.",
     action: "Register to Go",
+    kind: "go",
   },
 ];
 
 const GetInvolvedSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { open } = useInvolvement();
 
   return (
     <section id="involved" className="py-24 bg-cream">
@@ -58,7 +65,10 @@ const GetInvolvedSection = () => {
               </div>
               <h3 className="font-display text-2xl font-bold text-navy mb-3">{w.title}</h3>
               <p className="text-muted-foreground leading-relaxed flex-1 mb-6">{w.desc}</p>
-              <button className="bg-navy text-primary-foreground font-semibold py-3 rounded-full hover:bg-navy-light transition-colors">
+              <button
+                onClick={() => open(w.kind)}
+                className="bg-navy text-primary-foreground font-semibold py-3 rounded-full hover:bg-navy-light transition-colors"
+              >
                 {w.action}
               </button>
             </motion.div>

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Heart, BookOpen, Users } from "lucide-react";
+import helpingHands from "@/assets/helping-hands.jpg";
 
 const AboutSection = () => {
   const ref = useRef(null);
@@ -48,6 +49,25 @@ const AboutSection = () => {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={inView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-16 max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-elevated relative group"
+        >
+          <img
+            src={helpingHands}
+            alt="Believers reaching out to help one another at sunset"
+            loading="lazy"
+            className="w-full h-72 md:h-96 object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent flex items-end">
+            <p className="font-display italic text-primary-foreground text-xl md:text-2xl p-8 max-w-2xl">
+              "Bear one another's burdens, and so fulfill the law of Christ." — Galatians 6:2
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

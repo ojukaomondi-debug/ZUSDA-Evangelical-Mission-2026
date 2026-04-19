@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/worship-sunrise.jpg";
 import CountdownTimer from "./CountdownTimer";
+import Hero3D from "./Hero3D";
+import { useInvolvement } from "./InvolvementDialogs";
 
 const HeroSection = () => {
+  const { open } = useInvolvement();
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div
@@ -11,6 +14,7 @@ const HeroSection = () => {
         style={{ backgroundImage: `url(${heroBg})` }}
       />
       <div className="absolute inset-0 bg-navy/80" />
+      <Hero3D />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-navy/60" />
 
       <div className="relative z-10 container mx-auto px-4 text-center py-32">
@@ -47,7 +51,7 @@ const HeroSection = () => {
           transition={{ delay: 0.8 }}
           className="text-primary-foreground/60 text-sm md:text-base mb-10"
         >
-          Isaiah 1:18 &nbsp;·&nbsp; 13–27 December 2026 &nbsp;·&nbsp; Kinungi, Naivasha
+          Isaiah 1:18 (NKJV) &nbsp;·&nbsp; 13–27 December 2026 &nbsp;·&nbsp; Kinungi, Naivasha
         </motion.p>
 
         <motion.div
@@ -64,17 +68,17 @@ const HeroSection = () => {
           transition={{ delay: 1.2 }}
           className="flex flex-col sm:flex-row gap-4 justify-center mt-10"
         >
-          <a
-            href="#involved"
+          <button
+            onClick={() => open("give")}
             className="bg-gradient-gold text-secondary-foreground font-semibold px-8 py-3.5 rounded-full text-base hover:opacity-90 transition-opacity animate-pulse-gold"
           >
-            Get Involved
-          </a>
+            Make a Contribution
+          </button>
           <a
-            href="#about"
+            href="#involved"
             className="border-2 border-gold/40 text-primary-foreground font-semibold px-8 py-3.5 rounded-full text-base hover:bg-gold/10 transition-colors"
           >
-            Learn More
+            Get Involved
           </a>
         </motion.div>
       </div>

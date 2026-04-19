@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useInvolvement } from "./InvolvementDialogs";
+import sdaLogo from "@/assets/sda-logo.png";
 
 const links = [
   { label: "Home", href: "#home" },
@@ -13,14 +15,24 @@ const links = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { open: openDialog } = useInvolvement();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-md border-b border-gold/20">
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
-        <a href="#home" className="font-display text-lg font-bold text-primary-foreground tracking-wide">
-          ZUSDA <span className="text-gold">Mission 2026</span>
+        <a href="#home" className="flex items-center gap-2.5 font-display text-base md:text-lg font-bold text-primary-foreground tracking-wide">
+          <motion.img
+            src={sdaLogo}
+            alt="Seventh-day Adventist Church logo"
+            width={36}
+            height={36}
+            className="h-9 w-9 object-contain drop-shadow"
+            whileHover={{ rotate: 8, scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          />
+          <span>ZUSDA <span className="text-gold">Mission 2026</span></span>
         </a>
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-7">
           {links.map((l) => (
             <a
               key={l.href}
@@ -30,12 +42,12 @@ const Navbar = () => {
               {l.label}
             </a>
           ))}
-          <a
-            href="#involved"
+          <button
+            onClick={() => openDialog("give")}
             className="bg-gradient-gold text-secondary-foreground text-sm font-semibold px-5 py-2 rounded-full hover:opacity-90 transition-opacity"
           >
             Support the Mission
-          </a>
+          </button>
         </div>
         <button className="md:hidden text-primary-foreground" onClick={() => setOpen(!open)}>
           {open ? <X size={24} /> : <Menu size={24} />}
@@ -60,13 +72,15 @@ const Navbar = () => {
                   {l.label}
                 </a>
               ))}
-              <a
-                href="#involved"
-                onClick={() => setOpen(false)}
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  openDialog("give");
+                }}
                 className="bg-gradient-gold text-secondary-foreground font-semibold px-5 py-2.5 rounded-full text-center mt-2"
               >
                 Support the Mission
-              </a>
+              </button>
             </div>
           </motion.div>
         )}

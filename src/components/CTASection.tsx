@@ -1,12 +1,20 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useInvolvement } from "./InvolvementDialogs";
+import helpingHands from "@/assets/helping-hands.jpg";
 
 const CTASection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { open } = useInvolvement();
 
   return (
     <section className="py-24 bg-navy relative overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-20"
+        style={{ backgroundImage: `url(${helpingHands})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-navy/90 via-navy/80 to-navy" />
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold rounded-full blur-3xl" />
       </div>
@@ -22,16 +30,16 @@ const CTASection = () => {
             <span className="text-gradient-gold">You Are Invited.</span>
           </h2>
           <p className="text-primary-foreground/60 text-lg mb-10 max-w-xl mx-auto">
-            Be part of something eternal. Whether through prayer, giving, or going — 
+            Be part of something eternal. Whether through prayer, giving, or going —
             your response matters. Join us in Kinungi this December.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#involved"
+            <button
+              onClick={() => open("give")}
               className="bg-gradient-gold text-secondary-foreground font-bold px-10 py-4 rounded-full text-lg hover:opacity-90 transition-opacity animate-pulse-gold"
             >
               Answer the Call
-            </a>
+            </button>
           </div>
         </motion.div>
       </div>

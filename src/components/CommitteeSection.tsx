@@ -1,46 +1,120 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Megaphone, Wallet, Radio, Truck, Utensils, Crown } from "lucide-react";
+import gregoryDaghe from "@/assets/committee/Gregory_Daghe.jpeg";
+import pastorMoses from "@/assets/committee/Pastor_Moses_Kariuki.jpeg";
+import leahMonchari from "@/assets/committee/Leah_Monchari.jpeg";
+import branolJoseph from "@/assets/committee/Branol_Joseph.jpeg";
+import gregoryNjeka from "@/assets/committee/Gregory_Njeka.jpeg";
+import jimCarson from "@/assets/committee/Jim_Carson.jpeg";
+import hellenJuma from "@/assets/committee/Hellen_Juma.jpeg";
+import robertCarlos from "@/assets/committee/Robert_Carlos.jpeg";
+import ericNtongai from "@/assets/committee/Eric_Ntongai.jpeg";
+import deborahKeira from "@/assets/committee/Deborah_Keira.jpeg";
+import annMaroa from "@/assets/committee/Ann_Maroa.jpeg";
 
-const departments = [
-  {
-    icon: Crown,
-    name: "Mission Chairman",
-    role: "General Oversight",
-    leaders: ["Gregory Daghe"],
-    accent: true,
-  },
+type Leader = { name: string; photo?: string };
+
+const departments: {
+  icon: typeof Megaphone;
+  name: string;
+  role: string;
+  leaders: Leader[];
+}[] = [
   {
     icon: Megaphone,
     name: "Evangelism / PM",
     role: "Preaching & spiritual coordination",
-    leaders: ["Pastor Moses Kariuki", "Leah Monchari"],
+    leaders: [
+      { name: "Pastor Moses Kariuki", photo: pastorMoses },
+      { name: "Leah Monchari", photo: leahMonchari },
+    ],
   },
   {
     icon: Wallet,
     name: "Finance",
     role: "Stewardship & accountability",
-    leaders: ["Branol Joseph", "Gregory Njeka"],
+    leaders: [
+      { name: "Branol Joseph", photo: branolJoseph },
+      { name: "Gregory Njeka", photo: gregoryNjeka },
+    ],
   },
   {
     icon: Radio,
     name: "Media & Communication",
     role: "Outreach, publicity & documentation",
-    leaders: ["Eld. Jim Carson", "Hellen Juma"],
+    leaders: [
+      { name: "Eld. Jim Carson", photo: jimCarson },
+      { name: "Hellen Juma", photo: hellenJuma },
+    ],
   },
   {
     icon: Truck,
     name: "Transport & Logistics",
     role: "Movement, accommodation & supplies",
-    leaders: ["Eld. Robert Carlos", "Eric Ntongai"],
+    leaders: [
+      { name: "Eld. Robert Carlos", photo: robertCarlos },
+      { name: "Eric Ntongai", photo: ericNtongai },
+    ],
   },
   {
     icon: Utensils,
     name: "Food & Catering",
     role: "Meals & hospitality",
-    leaders: ["Deborah Keira", "Ann Maroa"],
+    leaders: [
+      { name: "Deborah Keira", photo: deborahKeira },
+      { name: "Ann Maroa", photo: annMaroa },
+    ],
   },
 ];
+
+const missionChairman = {
+  icon: Crown,
+  name: "Mission Chairman",
+  role: "General Oversight",
+  leader: "Gregory Daghe",
+  photo: gregoryDaghe,
+};
+
+const initials = (name: string) =>
+  name
+    .replace(/Pastor|Eld\.?|Elder/gi, "")
+    .trim()
+    .split(/\s+/)
+    .map((p) => p[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
+const LeaderAvatar = ({
+  leader,
+  ring = "ring-gold/40",
+}: {
+  leader: Leader;
+  ring?: string;
+}) => (
+  <div className="flex flex-col items-center gap-2">
+    <div
+      className={`w-20 h-20 rounded-full overflow-hidden ring-2 ${ring} ring-offset-2 ring-offset-background bg-navy/10 flex items-center justify-center shadow-md`}
+    >
+      {leader.photo ? (
+        <img
+          src={leader.photo}
+          alt={leader.name}
+          loading="lazy"
+          className="w-full h-full object-cover object-center"
+        />
+      ) : (
+        <span className="font-display font-bold text-navy text-sm">
+          {initials(leader.name)}
+        </span>
+      )}
+    </div>
+    <span className="text-xs font-medium text-navy text-center leading-tight max-w-[7rem]">
+      {leader.name}
+    </span>
+  </div>
+);
 
 const CommitteeSection = () => {
   const ref = useRef(null);
@@ -54,7 +128,9 @@ const CommitteeSection = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-16"
         >
-          <p className="text-gold-dark uppercase tracking-[0.2em] text-sm font-semibold mb-3">Leadership</p>
+          <p className="text-gold-dark uppercase tracking-[0.2em] text-sm font-semibold mb-3">
+            Leadership
+          </p>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-navy mb-4">
             Mission Committee
           </h2>
@@ -63,50 +139,64 @@ const CommitteeSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {/* Mission Chairman - Featured */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileHover={{ y: -6 }}
+          className="rounded-2xl p-8 border transition-shadow hover:shadow-elevated bg-gradient-to-br from-navy to-navy-light border-gold/30 text-primary-foreground max-w-5xl mx-auto mb-10"
+        >
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <div className="relative shrink-0">
+              <div className="w-32 h-32 rounded-full overflow-hidden ring-4 ring-gold/60 ring-offset-4 ring-offset-navy shadow-glow">
+                <img
+                  src={missionChairman.photo}
+                  alt={missionChairman.leader}
+                  className="w-full h-full object-cover object-center"
+                />
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-10 h-10 rounded-full flex items-center justify-center bg-gradient-gold shadow-lg">
+                <missionChairman.icon className="text-secondary-foreground" size={20} />
+              </div>
+            </div>
+            <div className="flex-1 text-center sm:text-left">
+              <p className="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-1">
+                {missionChairman.role}
+              </p>
+              <h3 className="font-display font-bold text-2xl md:text-3xl text-primary-foreground mb-1">
+                {missionChairman.leader}
+              </h3>
+              <p className="text-primary-foreground/70">
+                {missionChairman.name}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* 5 Sub-departments */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {departments.map((d, i) => (
             <motion.div
               key={d.name}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.08 * i }}
+              transition={{ delay: 0.08 * (i + 1) }}
               whileHover={{ y: -6 }}
-              className={`rounded-2xl p-6 border transition-shadow hover:shadow-elevated ${
-                d.accent
-                  ? "bg-gradient-to-br from-navy to-navy-light border-gold/30 text-primary-foreground sm:col-span-2 lg:col-span-3"
-                  : "bg-cream border-gold/10"
-              }`}
+              className="rounded-2xl p-6 border transition-shadow hover:shadow-elevated bg-cream border-gold/10 flex flex-col"
             >
-              <div className="flex items-start gap-4">
-                <div
-                  className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${
-                    d.accent ? "bg-gradient-gold" : "bg-navy"
-                  }`}
-                >
-                  <d.icon className={d.accent ? "text-secondary-foreground" : "text-primary-foreground"} size={22} />
+              <div className="flex items-start gap-4 mb-5">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-navy">
+                  <d.icon className="text-primary-foreground" size={22} />
                 </div>
                 <div className="flex-1">
-                  <h4 className={`font-display font-bold text-lg ${d.accent ? "text-primary-foreground" : "text-navy"}`}>
-                    {d.name}
-                  </h4>
-                  <p className={`text-sm mb-3 ${d.accent ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-                    {d.role}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {d.leaders.map((l) => (
-                      <span
-                        key={l}
-                        className={`text-xs font-medium px-3 py-1 rounded-full ${
-                          d.accent
-                            ? "bg-primary-foreground/10 text-primary-foreground border border-gold/20"
-                            : "bg-background text-navy border border-gold/20"
-                        }`}
-                      >
-                        {l}
-                      </span>
-                    ))}
-                  </div>
+                  <h4 className="font-display font-bold text-lg text-navy">{d.name}</h4>
+                  <p className="text-sm text-muted-foreground">{d.role}</p>
                 </div>
+              </div>
+              <div className="flex justify-around items-start gap-3 mt-auto pt-2">
+                {d.leaders.map((l) => (
+                  <LeaderAvatar key={l.name} leader={l} />
+                ))}
               </div>
             </motion.div>
           ))}

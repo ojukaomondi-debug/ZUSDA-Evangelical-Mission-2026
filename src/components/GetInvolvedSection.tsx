@@ -3,29 +3,26 @@ import { useRef } from "react";
 import { HandHeart, Coins, Footprints } from "lucide-react";
 import { useInvolvement } from "./InvolvementDialogs";
 
-type Kind = "pray" | "give" | "go";
+const PRAYER_WHATSAPP_LINK = "https://chat.whatsapp.com/LnezZ6dnqkcKw0zhvsnjXg?mode=gi_t";
+const GO_WHATSAPP_LINK = "https://chat.whatsapp.com/Hx53MiLvjnWCYx81cPxLMw?mode=gi_t";
 
-const ways: { icon: any; title: string; desc: string; action: string; kind: Kind }[] = [
+const ways: { icon: any; title: string; desc: string; action: string; kind: "give" | "pray" | "go"; whatsappLink?: string }[] = [
   {
     icon: HandHeart,
     title: "Pray",
     desc: "Commit to spiritual support through intercession for the mission and the community of Kinungi. Prayer is the foundation of everything we do.",
     action: "Join Prayer Team",
     kind: "pray",
+    whatsappLink: PRAYER_WHATSAPP_LINK,
   },
-  {
-    icon: Coins,
-    title: "Give",
-    desc: "Contribute financially toward the mission budget. Your giving is an investment in eternity — every shilling counts toward reaching souls.",
-    action: "Make a Contribution",
-    kind: "give",
-  },
+  
   {
     icon: Footprints,
     title: "Go",
     desc: "Participate physically as a missionary during the 15-day outreach. Open to all willing individuals ready to serve.",
     action: "Register to Go",
     kind: "go",
+    whatsappLink: GO_WHATSAPP_LINK,
   },
 ];
 
@@ -44,7 +41,7 @@ const GetInvolvedSection = () => {
         >
           <p className="text-gold-dark uppercase tracking-[0.2em] text-sm font-semibold mb-3">Get Involved</p>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-navy mb-4">
-            Three Ways to Participate
+             Ways to Participate
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Everyone has a role to play. Whether through prayer, giving, or going — your involvement makes a difference.
@@ -65,12 +62,23 @@ const GetInvolvedSection = () => {
               </div>
               <h3 className="font-display text-2xl font-bold text-navy mb-3">{w.title}</h3>
               <p className="text-muted-foreground leading-relaxed flex-1 mb-6">{w.desc}</p>
-              <button
-                onClick={() => open(w.kind)}
-                className="bg-navy text-primary-foreground font-semibold py-3 rounded-full hover:bg-navy-light transition-colors"
-              >
-                {w.action}
-              </button>
+              {w.whatsappLink ? (
+                <a
+                  href={w.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-navy text-primary-foreground font-semibold py-3 rounded-full hover:bg-navy-light transition-colors text-center block"
+                >
+                  {w.action}
+                </a>
+              ) : (
+                <button
+                  onClick={() => open(w.kind)}
+                  className="bg-navy text-primary-foreground font-semibold py-3 rounded-full hover:bg-navy-light transition-colors"
+                >
+                  {w.action}
+                </button>
+              )}
             </motion.div>
           ))}
         </div>
